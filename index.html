@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Menu</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#172033;background:#f3f5f9}
+*{box-sizing:border-box}
+body{margin:0;padding:28px 16px}
+main{max-width:700px;margin:0 auto}
+.intro{margin-bottom:22px}
+h1{font-size:clamp(1.5rem,3vw,2.15rem);margin:0 0 8px}
+p{color:#536078;line-height:1.5;margin:0}
+.panel{background:#fff;border:1px solid #dce2ec;border-radius:16px;padding:24px;box-shadow:0 8px 25px #1d31500c}
+.buttons{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+button{display:block;width:100%;border:0;border-radius:10px;padding:14px 16px;font:inherit;font-weight:700;cursor:pointer;background:#1b398d;color:#fff;text-align:center;transition:background .15s ease,transform .15s ease}
+button:hover{background:#163078}
+button:active{transform:translateY(1px)}
+button:focus-visible{outline:3px solid #dbe7ff;outline-offset:3px}
+@media(max-width:780px){body{padding:18px 12px}.panel{padding:18px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="intro">
+    <h1>Boarding Pass RYANAIR</h1>
+    <p>Seleziona la Tipologia di Biglietto</p>
+  </div>
+  <section class="panel">
+    <div class="buttons">
+  <button type="button" onclick="richiediPassword('sta.html')">
+    STAFF TRAVEL
+  </button>
+
+  <button type="button" onclick="richiediPassword('po.html')">
+    PRIORITA'
+  </button>
+
+  <button type="button" onclick="richiediPassword('no.html')">
+    SENZA PRIORITA'
+  </button>
+</div>
+  </section>
+<script>
+const passwordPagine = {
+    "sta.html": "bbb076dc2be39df6e094291e2911f45b4562b9c5b828fabf308ac8b1f8bf7ab6",
+    "po.html": "bbb076dc2be39df6e094291e2911f45b4562b9c5b828fabf308ac8b1f8bf7ab6",
+    "no.html": "bbb076dc2be39df6e094291e2911f45b4562b9c5b828fabf308ac8b1f8bf7ab6"
+};
+
+async function sha256(testo) {
+    const dati = new TextEncoder().encode(testo);
+    const hash = await crypto.subtle.digest("SHA-256", dati);
+
+    return Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+}
+
+async function richiediPassword(pagina) {
+    const password = prompt("Inserisci la password:");
+
+    if (password === null) return;
+
+    const hashInserito = await sha256(password);
+
+    if (hashInserito === passwordPagine[pagina]) {
+        window.location.href = pagina;
+    } else {
+        alert("Password errata!");
+    }
+}
+</script>
+</main>
+</body>
+</html>
