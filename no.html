@@ -410,19 +410,20 @@ if (
 // Posto assegnato
 
 ctx.fillStyle = '#3369c1';
+
+ctx.fillStyle = '#3369c1';
 ctx.textAlign = 'right';
 
 const seat = $('seat').value.trim().toUpperCase();
 
 if (seat !== '') {
 
-    // Verifica il formato: numero della fila + una sola lettera A-F
+    // Verifica il formato: numero della fila + lettera A-F
     const match = seat.match(/^(\d+)([A-F])$/);
 
     if (!match) {
-        throw new Error(
-            'Posto non valido! Inserisci il numero della fila seguito da una lettera tra A, B, C, D, E, F. Esempio: 12F.'
-        );
+        alert('Errore! Il posto deve contenere il numero della fila e una sola lettera tra A, B, C, D, E, F. Esempio: 15F.');
+        return;
     }
 
     // Disegna il posto
@@ -447,6 +448,7 @@ if (seat !== '') {
     ctx.font = `700 ${fitText(porta, 300, 35, '700')}px Arial, sans-serif`;
     ctx.fillText(porta, 1034, 762);
 }
+
 
 
 
