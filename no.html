@@ -409,46 +409,50 @@ if (
 
 // Posto assegnato
 
-ctx.fillStyle = '#3369c1';
+
 
 ctx.fillStyle = '#3369c1';
 ctx.textAlign = 'right';
 
-const seat = $('seat').value.trim().toUpperCase();
+let seat = $('seat').value.trim().toUpperCase();
 
 if (seat !== '') {
 
-    // Verifica il formato: numero della fila + lettera A-F
-    const match = seat.match(/^(\d+)([A-F])$/);
-
-    if (!match) {
-        alert('Errore! Il posto deve contenere il numero della fila e una sola lettera tra A, B, C, D, E, F. Esempio: 15F.');
+    // Consente 1-2 cifre e al massimo una lettera A-F
+    if (!/^\d{1,2}[A-F]?$/.test(seat)) {
+        alert('Errore! Inserisci massimo due numeri e una sola lettera tra A, B, C, D, E, F. Esempio: 01A.');
         return;
     }
 
-    // Disegna il posto
+    // Aggiunge uno zero iniziale se il numero ha una sola cifra
+    seat = seat.replace(/^(\d)$/, '0$1');
+    seat = seat.replace(/^(\d)([A-F])$/, '0$1$2');
+
+    // Disegna il posto formattato
     ctx.font = `700 ${fitText(seat, 230, 62, '700')}px Arial, sans-serif`;
     ctx.fillText(seat, 1011, 390);
 
     // Estrae il numero della fila
-    const fila = parseInt(match[1], 10);
+    const match = seat.match(/^(\d+)/);
 
-    // Determina la porta
-    let porta;
+    if (match) {
+        const fila = parseInt(match[1], 10);
 
-    if (fila >= 1 && fila <= 15) {
-        porta = 'Porta davanti';
-    } else {
-        porta = 'Porta posteriore';
+        let porta;
+
+        if (fila >= 1 && fila <= 15) {
+            porta = 'Porta davanti';
+        } else {
+            porta = 'Porta posteriore';
+        }
+
+        // Disegna la porta
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = 'right';
+        ctx.font = `700 ${fitText(porta, 300, 35, '700')}px Arial, sans-serif`;
+        ctx.fillText(porta, 1034, 762);
     }
-
-    // Disegna la porta sotto il posto
-    ctx.fillStyle = '#000000';
-    ctx.textAlign = 'right';
-    ctx.font = `700 ${fitText(porta, 300, 35, '700')}px Arial, sans-serif`;
-    ctx.fillText(porta, 1034, 762);
 }
-
 
 
 
