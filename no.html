@@ -554,6 +554,9 @@ $('flightDate').value = todayLocalISO();
 
 
 $('generate').addEventListener('click',()=>{updateQR();draw();});
+    $('reference').addEventListener('input', function () {
+    this.value = this.value.toUpperCase();
+});
 ['name','originCode','destCode','reference','sequence','seat'].forEach(id=>$(id).addEventListener('input',updateQR));
 [
     'name', 'originCity', 'originCode', 'destCity', 'destCode',
