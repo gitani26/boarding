@@ -411,50 +411,57 @@ if (
 
 
 
+
+
 ctx.fillStyle = '#3369c1';
 ctx.textAlign = 'right';
-
 
 let seat = $('seat').value.trim().toUpperCase();
 
 if (seat !== '' && !/^\d{1,2}[A-F]?$/.test(seat)) {
-    alert('Errore! Inserisci massimo due numeri e una sola lettera tra A, B, C, D, E, F. Esempio: 01A.');
+
+    if (seat !== ultimoSeatErrato) {
+        ultimoSeatErrato = seat;
+        alert('Errore! Inserisci massimo due numeri e una sola lettera tra A, B, C, D, E, F. Esempio: 01A.');
+    }
+
     return;
 }
 
+// Azzera l'errore quando il valore è valido
+ultimoSeatErrato = '';
 
-    // Aggiunge uno zero iniziale se il numero ha una sola cifra
-    seat = seat.replace(/^(\d)$/, '0$1');
-    seat = seat.replace(/^(\d)([A-F])$/, '0$1$2');
+// Aggiunge uno zero iniziale se il numero ha una sola cifra
+seat = seat.replace(/^(\d)$/, '0$1');
+seat = seat.replace(/^(\d)([A-F])$/, '0$1$2');
 
-    // Disegna il posto formattato
-    ctx.font = `700 ${fitText(seat, 230, 62, '700')}px Arial, sans-serif`;
-    ctx.fillText(seat, 1011, 390);
+// Disegna il posto formattato
+ctx.font = `700 ${fitText(seat, 230, 62, '700')}px Arial, sans-serif`;
+ctx.fillText(seat, 1011, 390);
 
-    // Estrae il numero della fila
-    const match = seat.match(/^(\d+)/);
+// Estrae il numero della fila
+const match = seat.match(/^(\d+)/);
 
-    if (match) {
-        const fila = parseInt(match[1], 10);
+if (match) {
+    const fila = parseInt(match[1], 10);
 
-        let porta;
+    let porta;
 
-        if (fila >= 1 && fila <= 15) {
-            porta = 'Porta davanti';
-        } else {
-            porta = 'Porta posteriore';
-        }
-
-        // Disegna la porta
-        ctx.fillStyle = '#000000';
-        ctx.textAlign = 'right';
-        ctx.font = `700 ${fitText(porta, 300, 35, '700')}px Arial, sans-serif`;
-        ctx.fillText(porta, 1034, 762);
+    if (fila >= 1 && fila <= 15) {
+        porta = 'Porta davanti';
+    } else {
+        porta = 'Porta posteriore';
     }
+
+    // Disegna la porta
+    ctx.fillStyle = '#000000';
+    ctx.textAlign = 'right';
+    ctx.font = `700 ${fitText(porta, 300, 35, '700')}px Arial, sans-serif`;
+    ctx.fillText(porta, 1034, 762);
 }
 
 
-
+let ultimoSeatErrato = '';
 
  // Nome passeggero e tratta
 
