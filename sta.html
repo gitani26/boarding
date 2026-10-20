@@ -490,7 +490,7 @@ ctx.fillText(flightNumber, 538, 1436);
 
  // Data di oggi, orario di partenza e chiusura gate 30 minuti prima
  const date = $('flightDate').value || todayLocalISO();
- const departure = $('departureTime').value || '18:00';
+ const departure = $('departureTime').value || '8:00';
  const gateClose = subtractMinutes(departure,30);
  ctx.fillStyle=BLUE;
  ctx.textAlign='left';
