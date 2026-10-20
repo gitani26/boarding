@@ -527,19 +527,19 @@ ctx.fillText(flightNumber, 538, 1436);
 
  // Data di oggi, orario di partenza e chiusura gate 30 minuti prima
  const date = $('flightDate').value || todayLocalISO();
- const departure = $('departureTime').value || '18:00';
+ const departure = $('departureTime').value || '8:00';
  const gateClose = subtractMinutes(departure,30);
  ctx.fillStyle=BLUE;
  ctx.textAlign='left';
  ctx.font='400 28px Arial, sans-serif';
 
- ctx.font=`700 ${fitText(`${formatDate(date)} - ${gateClose}`,390,38,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(`${formatDate(date)} - ${gateClose}`,390,40,'700')}px Arial, sans-serif`;
  ctx.fillText(`${formatDate(date)} - ${gateClose}`,47,1608);
 
  ctx.textAlign='right';
  ctx.font='400 28px Arial, sans-serif';
 
- ctx.font=`700 ${fitText(`${formatDate(date)} - ${departure}`,390,38,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(`${formatDate(date)} - ${departure}`,390,40,'700')}px Arial, sans-serif`;
  ctx.fillText(`${formatDate(date)} - ${departure}`,1031,1608);
  ctx.textAlign='left';
 }
