@@ -430,19 +430,19 @@ if (
  ctx.fillText(name,47,302);
 
  const originCity=$('originCity').value.trim();
- ctx.font=`400 ${fitText(originCity,390,28,'400')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(originCity,390,31,'700')}px Arial, sans-serif`;
  ctx.fillText(originCity,43,1364);
  const originCode=($('originCode').value.trim()||'XXX').toUpperCase();
- ctx.font=`700 ${fitText(originCode,245,78,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(originCode,245,82,'700')}px Arial, sans-serif`;
  ctx.fillText(originCode,43,1459);
 
  const destCity=$('destCity').value.trim();
  ctx.textAlign='right';
- ctx.font=`400 ${fitText(destCity,190,28,'400')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(destCity,190,31,'700')}px Arial, sans-serif`;
  ctx.fillText(destCity,1034,1364);
  const destCode=($('destCode').value.trim()||'XXX').toUpperCase();
  ctx.textAlign='right';
- ctx.font=`700 ${fitText(destCode,190,78,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(destCode,190,82,'700')}px Arial, sans-serif`;
  ctx.fillText(destCode,1034,1459);
 
 
@@ -512,6 +512,13 @@ $('flightDate').value = todayLocalISO();
 
 
 $('generate').addEventListener('click',()=>{updateQR();draw();});
+  $('generate').addEventListener('click',()=>{updateQR();draw();});
+    $('reference').addEventListener('input', function () {
+    this.value = this.value.toUpperCase();
+});
+    $('seat').addEventListener('input', function () {
+    this.value = this.value.toUpperCase();
+});  
 ['name','originCode','destCode','reference','sequence','seat'].forEach(id=>$(id).addEventListener('input',updateQR));
 [
     'name', 'originCity', 'originCode', 'destCity', 'destCode',
