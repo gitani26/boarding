@@ -407,7 +407,7 @@ if (
  ctx.textAlign='right';
  const seat = $('seat').value.trim().toUpperCase();
  if(seat){
-   ctx.font=`700 ${fitText(seat,230,60,'700')}px Arial, sans-serif`;
+   ctx.font=`700 ${fitText(seat,230,62,'700')}px Arial, sans-serif`;
    ctx.fillText(seat,1014,344);
  }
 
@@ -469,8 +469,7 @@ ctx.fillStyle = WHITE;
 ctx.textAlign = 'center';
 
 const flightNumber = 'FR' + $('flightNumber').value.trim().toUpperCase() || '—';
-
-ctx.font = `700 ${fitText(flightNumber, 190, 29, '700')}px Arial, sans-serif`;
+ctx.font = `700 ${fitText(flightNumber, 190, 31, '700')}px Arial, sans-serif`;
 ctx.fillText(flightNumber, 538, 1436);
 
  // Riferimento e sequenza
@@ -479,13 +478,13 @@ ctx.fillText(flightNumber, 538, 1436);
 
  const reference=$('reference').value.trim() || '—';
  ctx.textAlign='right';
- ctx.font=`700 ${fitText(reference,155,34,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(reference,155,36,'700')}px Arial, sans-serif`;
  ctx.fillText(reference,1033,512);
  
 
  const sequence=$('sequence').value.trim() || '—';
   ctx.textAlign='right';
- ctx.font=`700 ${fitText(sequence,155,34,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(sequence,155,36,'700')}px Arial, sans-serif`;
  ctx.fillText(sequence,1033,743);
 
  // Data di oggi, orario di partenza e chiusura gate 30 minuti prima
@@ -496,13 +495,13 @@ ctx.fillText(flightNumber, 538, 1436);
  ctx.textAlign='left';
  ctx.font='400 28px Arial, sans-serif';
 
- ctx.font=`700 ${fitText(`${formatDate(date)} - ${gateClose}`,390,38,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(`${formatDate(date)} - ${gateClose}`,390,40,'700')}px Arial, sans-serif`;
  ctx.fillText(`${formatDate(date)} - ${gateClose}`,47,1608);
 
  ctx.textAlign='right';
  ctx.font='400 28px Arial, sans-serif';
 
- ctx.font=`700 ${fitText(`${formatDate(date)} - ${departure}`,390,38,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(`${formatDate(date)} - ${departure}`,390,40,'700')}px Arial, sans-serif`;
  ctx.fillText(`${formatDate(date)} - ${departure}`,1031,1608);
  ctx.textAlign='left';
 }
