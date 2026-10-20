@@ -564,6 +564,39 @@ $('generate').addEventListener('click',()=>{updateQR();draw();});
 $('staffTitle').addEventListener('change', draw);
 $('download').addEventListener('click', async () => {
     try {
+
+        // Campi obbligatori da compilare
+        const requiredFields = [
+            { id: 'name', label: 'Nome passeggero' },
+            { id: 'originCity', label: 'Città di partenza' },
+            { id: 'originCode', label: 'Codice aeroporto di partenza' },
+            { id: 'destCity', label: 'Città di destinazione' },
+            { id: 'destCode', label: 'Codice aeroporto di destinazione' },
+            { id: 'reference', label: 'Riferimento' },
+            { id: 'sequence', label: 'Sequenza' },
+            { id: 'seat', label: 'Posto assegnato' },
+            { id: 'flightNumber', label: 'Numero del volo' },
+            { id: 'departureTime', label: 'Orario di partenza' },
+            { id: 'flightDate', label: 'Data del volo' }
+            
+        ];
+
+        // Controlla i campi vuoti
+        const missingFields = requiredFields.filter(field => {
+            const element = $(field.id);
+            return !element || !element.value.trim();
+        });
+
+        // Se mancano campi, mostra l'errore e interrompe
+        if (missingFields.length > 0) {
+            alert(
+                'Impossibile scaricare la carta d’imbarco.\n\n' +
+                'Compila tutti i campi obbligatori:\n\n' +
+                missingFields.map(field => '• ' + field.label).join('\n')
+            );
+            return;
+        }
+
         // Verifica che l'immagine di sfondo sia caricata
         if (!source.complete || !source.naturalWidth) {
             alert("L'immagine della carta d'imbarco non è ancora pronta.");
@@ -573,7 +606,7 @@ $('download').addEventListener('click', async () => {
         // Aggiorna il codice Aztec
         updateQR();
 
-        // Attende il completamento dell'aggiornamento del codice
+        // Attende il caricamento del codice
         if (qrImage && !qrImage.complete) {
             await new Promise((resolve, reject) => {
                 qrImage.addEventListener('load', resolve, { once: true });
