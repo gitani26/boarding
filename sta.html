@@ -48,7 +48,7 @@ select {
     <section class="panel form">
       <h2 style="font-size:1.1rem;margin:0">Dati passeggero e tratta</h2>
       <label for="name">Nome e cognome</label>
-      <input id="name" value="" autocomplete="name">
+      <input id="name" autocomplete="name">
      <div class="group-title">Origine</div>
      <label for="originCode">Codice aeroporto (IATA)</label>
         <input id="originCode" name="originCode" type="text" maxlength="3" placeholder="Es. BGY" autocomplete="off" spellcheck="false">
@@ -63,13 +63,13 @@ select {
         <p class="status" id="destStatus" aria-live="polite"></p>
       <div class="group-title">Dettagli del volo</div>
       <label for="reference">Riferimento Biglietto</label>
-      <input id="reference" value="" maxlength="18">
+      <input id="reference" maxlength="6">
       <label for="sequence">Sequenza</label>
       <input id="sequence" type="number" min="1">
       <label for="seat">Numero del posto</label>
-      <input id="seat" type="text" value="" maxlength="5" placeholder="Es. 12A">
+      <input id="seat" type="text" value="" maxlength="3" placeholder="Es. 12A">
       <label for="flightNumber">Numero del volo (Senza FR)</label>
-      <input id="flightNumber" type="text" value="" maxlength="10">
+      <input id="flightNumber" type="number" value="" maxlength="4">
       <label for="departureTime">Orario di partenza</label>
       <input id="departureTime" type="time" value="" required>
       <label for="flightDate">Data del volo</label>
@@ -78,10 +78,10 @@ select {
       <label for="staffTitle">Titolo:</label> 
       <select id="staffTitle">  <option value=""></option> <option value="MR">MR</option> <option value="MRS">MRS</option> </select>
       <label for="staffname">Nome Staff Travel</label>
-      <input id="staffname" value="" maxlength="50">
+      <input id="staffname" maxlength="50">
             <label for="staffdate">Data Assunzione</label>
-      <input id="staffdate" value="" type="date">
-      <label for="walletType">Sticker</label>
+      <input id="staffdate" type="date">
+      <label for="walletType">Sticker Wallet</label>
 
 <select id="walletType">
     <option value="apple">Apple Wallet</option>
