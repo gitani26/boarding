@@ -474,7 +474,7 @@ if (seat !== '') {
  const destCity=$('destCity').value.trim();
  ctx.textAlign='right';
    ctx.fillStyle='#6d7079';
- ctx.font='700 ${fitText(destCity,190,31,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(destCity,190,31,'700')}px Arial, sans-serif`;
  ctx.fillText(destCity,1034,1364);
  const destCode=($('destCode').value.trim()||'XXX').toUpperCase();
  ctx.textAlign='right';
