@@ -464,22 +464,22 @@ if (seat !== '') {
 
  const originCity=$('originCity').value.trim();
    ctx.fillStyle='#6d7079';
- ctx.font=`400 ${fitText(originCity,390,30,'600')}px Arial, sans-serif`;
+ ctx.font=`400 ${fitText(originCity,390,31,'700')}px Arial, sans-serif`;
  ctx.fillText(originCity,43,1364);
  const originCode=($('originCode').value.trim()||'XXX').toUpperCase();
    ctx.fillStyle='#000000';
- ctx.font=`700 ${fitText(originCode,245,80,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(originCode,245,82,'700')}px Arial, sans-serif`;
  ctx.fillText(originCode,43,1459);
 
  const destCity=$('destCity').value.trim();
  ctx.textAlign='right';
    ctx.fillStyle='#6d7079';
- ctx.font=`400 ${fitText(destCity,190,30,'600')}px Arial, sans-serif`;
+ ctx.font=`400 ${fitText(destCity,190,31,'700')}px Arial, sans-serif`;
  ctx.fillText(destCity,1034,1364);
  const destCode=($('destCode').value.trim()||'XXX').toUpperCase();
  ctx.textAlign='right';
    ctx.fillStyle='#000000';
- ctx.font=`700 ${fitText(destCode,190,80,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(destCode,190,82,'700')}px Arial, sans-serif`;
  ctx.fillText(destCode,1034,1459);
 
 
