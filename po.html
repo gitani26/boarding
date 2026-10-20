@@ -413,7 +413,7 @@ const seat = $('seat').value.trim().toUpperCase();
 
 if (seat !== '') {
     // Disegna il posto
-    ctx.font = `700 ${fitText(seat, 230, 60, '700')}px Arial, sans-serif`;
+    ctx.font = `700 ${fitText(seat, 230, 62, '700')}px Arial, sans-serif`;
     ctx.fillText(seat, 1014, 344);
 
     // Estrae il numero della fila dal posto (es. 15F -> 15)
@@ -435,7 +435,7 @@ if (seat !== '') {
         // Disegna la porta sotto il posto
         ctx.fillStyle = '#ffffff';
         ctx.textAlign = 'right';
-        ctx.font = `700 ${fitText(porta, 300, 35, '700')}px Arial, sans-serif`;
+        ctx.font = `700 ${fitText(porta, 300, 36, '700')}px Arial, sans-serif`;
         ctx.fillText(porta, 1034, 749);
     }
 }
@@ -444,7 +444,7 @@ if (seat !== '') {
 
 const text = "Priorità";
 
-ctx.font = "700 35px Arial, sans-serif";
+ctx.font = "700 36px Arial, sans-serif";
 ctx.fillStyle = "#ffffff";
 ctx.textAlign = "right";
 ctx.fillText(text, 1035, 630);
@@ -506,7 +506,7 @@ ctx.textAlign = 'center';
 
 const flightNumber = 'FR' + $('flightNumber').value.trim().toUpperCase() || '—';
 
-ctx.font = `700 ${fitText(flightNumber, 190, 29, '700')}px Arial, sans-serif`;
+ctx.font = `700 ${fitText(flightNumber, 190, 31, '700')}px Arial, sans-serif`;
 ctx.fillText(flightNumber, 538, 1436);
 
  // Riferimento e sequenza
@@ -515,14 +515,14 @@ ctx.fillText(flightNumber, 538, 1436);
 
  const reference=$('reference').value.trim() || '—';
  ctx.textAlign='right';
- ctx.font=`700 ${fitText(reference,155,34,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(reference,155,36,'700')}px Arial, sans-serif`;
  ctx.fillText(reference,1033,512);
  
 
 
  const sequence=$('sequence').value.trim() || '—';
   ctx.textAlign='right';
- ctx.font=`700 ${fitText(sequence,155,34,'700')}px Arial, sans-serif`;
+ ctx.font=`700 ${fitText(sequence,155,36,'700')}px Arial, sans-serif`;
  ctx.fillText(sequence,1033,863);
 
  // Data di oggi, orario di partenza e chiusura gate 30 minuti prima
