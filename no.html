@@ -408,39 +408,46 @@ if (
 
 
 // Posto assegnato
+
 ctx.fillStyle = '#3369c1';
 ctx.textAlign = 'right';
 
 const seat = $('seat').value.trim().toUpperCase();
 
 if (seat !== '') {
+
+    // Verifica il formato: numero della fila + una sola lettera A-F
+    const match = seat.match(/^(\d+)([A-F])$/);
+
+    if (!match) {
+        throw new Error(
+            'Posto non valido! Inserisci il numero della fila seguito da una lettera tra A, B, C, D, E, F. Esempio: 12F.'
+        );
+    }
+
     // Disegna il posto
     ctx.font = `700 ${fitText(seat, 230, 62, '700')}px Arial, sans-serif`;
     ctx.fillText(seat, 1011, 390);
 
-    // Estrae il numero della fila dal posto (es. 15F -> 15)
-    const match = seat.match(/^(\d+)/);
+    // Estrae il numero della fila
+    const fila = parseInt(match[1], 10);
 
-    if (match) {
-        const fila = parseInt(match[1], 10);
+    // Determina la porta
+    let porta;
 
-        // Dalla fila 1 alla 15: porta davanti.
-        // Dalla fila 16 in poi: porta posteriore.
-        let porta;
-
-        if (fila >= 1 && fila <= 15) {
-            porta = 'Porta davanti';
-        } else {
-            porta = 'Porta posteriore';
-        }
-
-        // Disegna la porta sotto il posto
-        ctx.fillStyle = '#000000';
-        ctx.textAlign = 'right';
-        ctx.font = `700 ${fitText(porta, 300, 35, '700')}px Arial, sans-serif`;
-        ctx.fillText(porta, 1034, 762);
+    if (fila >= 1 && fila <= 15) {
+        porta = 'Porta davanti';
+    } else {
+        porta = 'Porta posteriore';
     }
+
+    // Disegna la porta sotto il posto
+    ctx.fillStyle = '#000000';
+    ctx.textAlign = 'right';
+    ctx.font = `700 ${fitText(porta, 300, 35, '700')}px Arial, sans-serif`;
+    ctx.fillText(porta, 1034, 762);
 }
+
 
 
 
