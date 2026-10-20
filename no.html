@@ -431,7 +431,7 @@ if (seat !== '') {
         if (fila >= 1 && fila <= 15) {
             porta = 'Porta davanti';
         } else {
-            porta = 'Porta dietro';
+            porta = 'Porta posteriore';
         }
 
         // Disegna la porta sotto il posto
@@ -600,7 +600,7 @@ $('download').addEventListener('click', async () => {
         const link = document.createElement('a');
 
         link.href = url;
-        link.download = 'Boarding Pass.png';
+        link.download = 'BoardingPassRYR.png';
 
         document.body.appendChild(link);
         link.click();
