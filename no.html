@@ -63,13 +63,13 @@ select {
         <p class="status" id="destStatus" aria-live="polite"></p>
       <div class="group-title">Dettagli del volo</div>
       <label for="reference">Riferimento Biglietto</label>
-      <input id="reference" maxlength="6">
+      <input id="reference" spellcheck="false" maxlength="6">
       <label for="sequence">Sequenza</label>
       <input id="sequence" type="number" min="1">
       <label for="seat">Numero del posto</label>
       <input id="seat" type="text" value="" maxlength="5" placeholder="Es. 12A">
       <label for="flightNumber">Numero del volo (Senza FR)</label>
-      <input id="flightNumber" type="number" value="" maxlength="4">
+      <input id="flightNumber" type="number" placeholder="Es. 1234" value="" maxlength="4">
       <label for="departureTime">Orario di partenza</label>
       <input id="departureTime" type="time" value="" required>
       <label for="flightDate">Data del volo</label>
@@ -394,7 +394,7 @@ if (
     const stickerH = 170;
 
     const stickerX = qx + (873 - stickerW) / 2;
-    const stickerY = qy + 610 + 20;
+    const stickerY = qy + 590 + 20;
 
     ctx.drawImage(
         walletSticker,
