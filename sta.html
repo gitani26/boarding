@@ -88,8 +88,8 @@ select {
         <option value="google">Google Wallet</option>
 </select>
       <p class="note">La data viene impostata automaticamente a oggi.</p>
-<button class="primary" id="generate">Aggiorna anteprima</button>
-      <button class="secondary" id="download">Scarica Carta D'Imbarco</button>
+<button class="primary" id="generate"style="display: none;">Aggiorna anteprima</button>
+      <button class="primary" id="download" >Scarica Carta D'Imbarco</button>
     
     </section>
     <section class="panel preview">
@@ -246,7 +246,7 @@ function generateSequence() {
 
 
 window.addEventListener('DOMContentLoaded', () => {
-    generateSeat();
+    //generateSeat();
     generateReference();
     generateSequence();
 
@@ -264,17 +264,29 @@ function updateQR() {
 
   const parts = $('name').value.trim().toUpperCase().split(/\s+/);
 const name = parts.length > 1
-    ? parts.slice(1).join(' ') + '/' + parts[0]
-    : parts[0];
+    ? parts.slice(1).join('').replace(/\s+/g, '') + '/' + parts[0].replace(/\s+/g, '')
+    : parts[0].replace(/\s+/g, '');
+    const randomNumber = '6' + Math.floor( Math.random() * 1000).toString().padStart(3, '0');
   const reference = $('reference').value.trim().toUpperCase();
   const origin = $('originCode').value.trim().toUpperCase();
   const destination = $('destCode').value.trim().toUpperCase();
   const seat = $('seat').value.trim().toUpperCase();
   const number = $('flightNumber').value.trim().toUpperCase();
   const sequence = $('sequence').value.trim();
+const date = $('flightDate').value || todayLocalISO();
+
+const [year, month, day] = date.split('-').map(Number);
+
+const startOfYear = Date.UTC(year, 0, 1);
+const currentDate = Date.UTC(year, month - 1, day);
+
+const dayOfYear = Math.floor(
+  (currentDate - startOfYear) / 86400000
+) + 1;
+const dayOfYearFormatted = String(dayOfYear).padStart(3, '0');
 
   // Payload demo personalizzato.
-  const payload = `M1${name}   ${reference} ${origin}${destination}FR ${number} 002Y0${seat} 0${sequence} 149>5181W 6002BFR 00000000000002A0000000000000 0                          NY`;
+  const payload = `M1${name}   ${reference} ${origin}${destination}FR ${number} ${dayOfYearFormatted}Y${String(seat || 0).padStart(3, '0')} 0${String(sequence).padStart(3, '0')} 149>5182W ${randomNumber}BFR 00000000000002A0000000000000 0                          NY`;
 
   // Crea il codice Aztec su un canvas temporaneo.
   const aztecCanvas = document.createElement('canvas');
@@ -403,8 +415,7 @@ if (
 }
 
 
- ctx.fillStyle='#eaca53';
- 
+ctx.fillStyle = '#eaca53';
 ctx.textAlign = 'right';
 
 let seat = $('seat').value.trim().toUpperCase();
@@ -422,13 +433,55 @@ if (seat !== '' && !/^\d{1,2}[A-F]?$/.test(seat)) {
 // Azzera l'errore quando il valore è valido
 ultimoSeatErrato = '';
 
-// Aggiunge uno zero iniziale se il numero ha una sola cifra
-seat = seat.replace(/^(\d)$/, '0$1');
-seat = seat.replace(/^(\d)([A-F])$/, '0$1$2');
+// Se non è stato inserito alcun posto
+if (seat === '') {
 
-// Disegna il posto formattato
-ctx.font = `700 ${fitText(seat, 230, 62, '700')}px Arial, sans-serif`;
-ctx.fillText(seat, 1014, 344);
+    ctx.fillStyle = '#eaca53';
+    ctx.textAlign = 'right';
+
+    // Prima riga: ASSEGNATO
+    ctx.font = '700 34px Arial, sans-serif';
+    const testo1 = 'Assegnato al';
+    const x = 1006;
+    const y1 = 317;
+
+    ctx.fillText(testo1, x, y1);
+
+    // Sottolineatura della prima riga
+    const larghezza1 = ctx.measureText(testo1).width;
+    ctx.beginPath();
+    ctx.lineWidth = 1.5;
+    ctx.moveTo(x - larghezza1, y1 + 3);
+    ctx.lineTo(x, y1 + 3);
+    ctx.strokeStyle = '#eaca53';
+    ctx.stroke();
+
+    // Seconda riga: AL GATE
+    ctx.font = '700 34px Arial, sans-serif';
+    const testo2 = 'gate';
+    const y2 = 359;
+
+    ctx.fillText(testo2, x, y2);
+
+    // Sottolineatura della seconda riga
+    const larghezza2 = ctx.measureText(testo2).width;
+    ctx.beginPath();
+    ctx.lineWidth = 1.5;
+    ctx.moveTo(x - larghezza2, y2 + 3);
+    ctx.lineTo(x, y2 + 3);
+    ctx.strokeStyle = '#eaca53';
+    ctx.stroke();
+
+} else {
+
+    // Formatta il posto
+    seat = seat.replace(/^(\d)$/, '0$1');
+    seat = seat.replace(/^(\d)([A-F])$/, '0$1$2');
+
+    // Disegna il posto formattato
+    ctx.font = `700 ${fitText(seat, 230, 62, '700')}px Arial, sans-serif`;
+    ctx.fillText(seat, 1014, 344);
+}
 
 // Estrae il numero della fila
 const match = seat.match(/^(\d+)/);
@@ -472,7 +525,7 @@ if (match) {
  const originCity=$('originCity').value.trim();
  ctx.font=`700 ${fitText(originCity,390,31,'700')}px Arial, sans-serif`;
  ctx.fillText(originCity,43,1364);
- const originCode=($('originCode').value.trim()||'XXX').toUpperCase();
+ const originCode=($('originCode').value.trim()||'').toUpperCase();
  ctx.font=`700 ${fitText(originCode,245,82,'700')}px Arial, sans-serif`;
  ctx.fillText(originCode,43,1459);
 
@@ -480,7 +533,7 @@ if (match) {
  ctx.textAlign='right';
  ctx.font=`700 ${fitText(destCity,390,31,'700')}px Arial, sans-serif`;
  ctx.fillText(destCity,1034,1364);
- const destCode=($('destCode').value.trim()||'XXX').toUpperCase();
+ const destCode=($('destCode').value.trim()||'').toUpperCase();
  ctx.textAlign='right';
  ctx.font=`700 ${fitText(destCode,190,82,'700')}px Arial, sans-serif`;
  ctx.fillText(destCode,1034,1459);
@@ -558,7 +611,7 @@ $('generate').addEventListener('click',()=>{updateQR();draw();});
     $('seat').addEventListener('input', function () {
     this.value = this.value.toUpperCase();
 });  
-['name','originCode','destCode','reference','sequence','seat'].forEach(id=>$(id).addEventListener('input',updateQR));
+['name','originCode','destCode','reference','sequence','seat','flightNumber','flightDate'].forEach(id=>$(id).addEventListener('input',updateQR));
 [
     'name', 'originCity', 'originCode', 'destCity', 'destCode',
     'reference', 'sequence', 'seat', 'flightNumber',
@@ -578,7 +631,7 @@ $('download').addEventListener('click', async () => {
             { id: 'destCode', label: 'Città di destinazione' },
             { id: 'reference', label: 'Riferimento' },
             { id: 'sequence', label: 'Sequenza' },
-            { id: 'seat', label: 'Posto assegnato' },
+
             { id: 'flightNumber', label: 'Numero del volo' },
             { id: 'departureTime', label: 'Orario di partenza' },
             { id: 'flightDate', label: 'Data del volo' },
